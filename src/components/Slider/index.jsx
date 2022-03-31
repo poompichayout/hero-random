@@ -1,21 +1,27 @@
 import React, { useState, useRef } from "react";
 import Marquee from "react-fast-marquee";
 import HeroItem from "../HeroItem";
+import HeroModal from "../HeroModal";
 import { PrimaryButton, SecondaryButton } from "../../style/global";
 import { ButtonWrapper } from "./style";
 
 import arrow from "../../images/pointer.png";
 
+
 const Slider = ({ heroes }) => {
 	const [play, setPlay] = useState(false);
 	const [speed, setSpeed] = useState(1000);
 	const [isStopping, setStopping] = useState(false);
+	const [activeHero, setActiveHero] = useState(null);
+	const [modalOpen, setModalOpen] = useState(false);
 
 	const counterRef = useRef(speed);
 	const interval = useRef(null);
 
 	const onRandomClick = () => {
 		setStopping(true);
+		setModalOpen(false);
+		setActiveHero(null);
 
 		if (play) {
 			let myPromise = new Promise(function (resolve) {
@@ -32,6 +38,7 @@ const Slider = ({ heroes }) => {
 			myPromise.then(() => {
 				setPlay(false);
 				setStopping(false);
+				onRandomFinish(activeHero);
 			});
 		} else {
 			counterRef.current = 1000;
@@ -42,8 +49,7 @@ const Slider = ({ heroes }) => {
 	};
 
 	const onRandomFinish = (hero) => {
-		// calculate what hero is on the center
-		console.log("active hero:", hero);
+		setModalOpen(true);
 	};
 
 	return (
@@ -69,7 +75,7 @@ const Slider = ({ heroes }) => {
 						key={hero.id}
 						hero={hero}
 						isPlay={play}
-						onRandomFinish={onRandomFinish}
+						setActiveHero={setActiveHero}
 						// active={hero.id % 2 === 0}
 						style={{ margin: "0 1rem" }}
 					/>
@@ -86,6 +92,7 @@ const Slider = ({ heroes }) => {
 				</PrimaryButton>
 				<SecondaryButton>History</SecondaryButton>
 			</ButtonWrapper>
+			<HeroModal open={modalOpen} hero={activeHero} setOpen={setModalOpen} />
 		</div>
 	);
 };

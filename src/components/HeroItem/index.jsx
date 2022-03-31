@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { Card, LogoWrapper } from "./style";
 
-const HeroItem = ({ hero, isPlay, onRandomFinish, style, ...props }) => {
+const HeroItem = ({ hero, isPlay, setActiveHero, style, ...props }) => {
 	const ref = useRef(null);
 	const [properties, setProperties] = useState(null);
 	const [active, setActive] = useState(false);
@@ -21,7 +21,7 @@ const HeroItem = ({ hero, isPlay, onRandomFinish, style, ...props }) => {
 
 	useEffect(() => {
 		if (active && isCenter()) {
-			onRandomFinish(hero);
+			setActiveHero(hero);
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [active]);
