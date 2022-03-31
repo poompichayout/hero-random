@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { Header, Footer, HistoryTable, Slider } from "./components";
+import { Wrapper, LandingWrapper } from "./style/global";
+import heroData from "./utils/heroes";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [heroes, setHeroes] = useState(heroData);
+	
+	return (
+		<Wrapper>
+			<Header />
+			<LandingWrapper>
+				<h1>Let's randomize the hero that suits you!</h1>
+			</LandingWrapper>
+
+			<Slider heroes={heroes} setHeroes={setHeroes} />
+			<HistoryTable />
+			<Footer />
+		</Wrapper>
+	);
 }
 
 export default App;
