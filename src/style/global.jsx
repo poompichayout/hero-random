@@ -44,10 +44,3 @@ export const SecondaryButton = styled.button`
 		border-color: #2f5bad;
 	}
 `;
-
-export const LandingWrapper = styled.div`
-	margin-top: 5rem;
-	text-align: center;
-	font-weight: 400;
-	font-size: 20px;
-`;
