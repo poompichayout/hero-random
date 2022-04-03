@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import { Card, LogoWrapper } from "./style";
 
 const HeroItem = ({ hero, isPlay, setActiveHero, style, ...props }) => {
-	const ref = useRef(null);
+	const ref = useRef(false);
 	const [properties, setProperties] = useState(null);
 	const [active, setActive] = useState(false);
 	const isCenter = useCallback(() => {
@@ -13,9 +13,11 @@ const HeroItem = ({ hero, isPlay, setActiveHero, style, ...props }) => {
 	}, [properties?.left, properties?.right, properties?.width])
 
 	useEffect(() => {
-		if (ref.current) {
-			setProperties(ref.current.getBoundingClientRect());
+		if (!ref.current) {
+			return;
 		}
+		
+		setProperties(ref.current.getBoundingClientRect());
 		setActive(!isPlay && isCenter());
 	}, [isPlay, properties?.left, properties?.right, properties?.width, isCenter]);
 

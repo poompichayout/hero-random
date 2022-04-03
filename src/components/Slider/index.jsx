@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Marquee from "react-fast-marquee";
 import HeroItem from "../HeroItem";
 import HeroModal from "../HeroModal";
@@ -7,14 +7,14 @@ import { ButtonWrapper } from "./style";
 
 import arrow from "../../images/pointer.png";
 
-
-const Slider = ({ heroes }) => {
+const Slider = ({ heroes, setHistory }) => {
 	const [play, setPlay] = useState(false);
 	const [speed, setSpeed] = useState(1000);
 	const [isStopping, setStopping] = useState(false);
 	const [activeHero, setActiveHero] = useState(null);
 	const [modalOpen, setModalOpen] = useState(false);
 
+	const didSliderMount = useRef(false);
 	const counterRef = useRef(speed);
 	const interval = useRef(null);
 
@@ -38,7 +38,7 @@ const Slider = ({ heroes }) => {
 			myPromise.then(() => {
 				setPlay(false);
 				setStopping(false);
-				onRandomFinish(activeHero);
+				setModalOpen(true);
 			});
 		} else {
 			counterRef.current = 1000;
@@ -48,9 +48,16 @@ const Slider = ({ heroes }) => {
 		}
 	};
 
-	const onRandomFinish = (hero) => {
-		setModalOpen(true);
-	};
+	useEffect(() => {
+		if (!didSliderMount.current) {
+			return didSliderMount.current = true;
+		}
+
+		if (modalOpen === false) {
+			setHistory((histories) => [...histories, activeHero])
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [modalOpen]);
 
 	return (
 		<div>
@@ -92,7 +99,11 @@ const Slider = ({ heroes }) => {
 				</PrimaryButton>
 				<SecondaryButton>History</SecondaryButton>
 			</ButtonWrapper>
-			<HeroModal open={modalOpen} hero={activeHero} setOpen={setModalOpen} />
+			<HeroModal
+				open={modalOpen}
+				hero={activeHero}
+				setOpen={setModalOpen}
+			/>
 		</div>
 	);
 };
