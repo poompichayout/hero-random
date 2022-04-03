@@ -20,5 +20,5 @@ export const Card = styled.div`
 export const LogoWrapper = styled.div`
 	background-color: white;
 	border-radius: 50%;
-	padding: 0.5rem;
+	padding: 0.5em;
 `;

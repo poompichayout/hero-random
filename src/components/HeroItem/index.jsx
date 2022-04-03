@@ -34,8 +34,8 @@ const HeroItem = ({ hero, isPlay, setActiveHero, style, ...props }) => {
 				<img
 					src={require(`../../images/${hero.image}`)}
 					alt=""
-					width="50"
-					height="50"
+					width="60"
+					height="60"
 				/>
 			</LogoWrapper>
 			<div>
