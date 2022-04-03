@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const TableWrapper = styled.div`
+	display: ${props => props.open? "block": "none"};
 	margin: 3em auto;
 	text-align: center;
 `;

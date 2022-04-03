@@ -6,6 +6,7 @@ import heroData from "./utils/heroes";
 function App() {
 	const [heroes] = useState(heroData);
 	const [history, setHistory] = useState([]);
+	const [openHistory, setOpenHistory] = useState(false);
 	
 	return (
 		<Wrapper>
@@ -14,8 +15,8 @@ function App() {
 				<h1>Let's randomize the hero that suits you!</h1>
 			</LandingWrapper>
 
-			<Slider heroes={heroes} setHistory={setHistory} />
-			<HistoryTable data={history} />
+			<Slider heroes={heroes} setHistory={setHistory} setOpenHistory={setOpenHistory} />
+			<HistoryTable data={history} open={openHistory} />
 			<Footer />
 		</Wrapper>
 	);

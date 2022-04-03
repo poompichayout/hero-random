@@ -1,9 +1,9 @@
 import React from "react";
 import { StyledTable, TableWrapper, StyledHeader, StyledRow } from "./style";
 
-const HistoryTable = ({ data }) => {
+const HistoryTable = ({ data, open }) => {
 	return (
-		<TableWrapper>
+		<TableWrapper open={open}>
 			<h2>History</h2>
 			<StyledTable>
 				<StyledHeader>

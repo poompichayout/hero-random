@@ -1,13 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
-import Marquee from "react-fast-marquee";
 import HeroItem from "../HeroItem";
 import HeroModal from "../HeroModal";
 import { PrimaryButton, SecondaryButton } from "../../style/global";
-import { ButtonWrapper } from "./style";
+import { ButtonWrapper, StyledMarquee } from "./style";
 
 import arrow from "../../images/pointer.png";
 
-const Slider = ({ heroes, setHistory }) => {
+const Slider = ({ heroes, setHistory, setOpenHistory }) => {
 	const [play, setPlay] = useState(false);
 	const [speed, setSpeed] = useState(1000);
 	const [isStopping, setStopping] = useState(false);
@@ -50,13 +49,13 @@ const Slider = ({ heroes, setHistory }) => {
 
 	useEffect(() => {
 		if (!didSliderMount.current) {
-			return didSliderMount.current = true;
+			return (didSliderMount.current = true);
 		}
 
 		if (modalOpen === false) {
-			setHistory((histories) => [...histories, activeHero])
+			setHistory((histories) => [...histories, activeHero]);
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [modalOpen]);
 
 	return (
@@ -65,17 +64,13 @@ const Slider = ({ heroes, setHistory }) => {
 				<img src={arrow} alt="" width="40" height="40" />
 			</div>
 
-			<Marquee
+			<StyledMarquee
 				direction="right"
 				speed={speed}
 				play={play}
 				pauseOnHover={!play}
 				pauseOnClick={!play}
-				style={{
-					margin: "0 auto",
-					paddingBottom: "2em",
-					maxWidth: "60%",
-				}}
+				gradient={false}
 			>
 				{heroes.map((hero) => (
 					<HeroItem
@@ -87,7 +82,7 @@ const Slider = ({ heroes, setHistory }) => {
 						style={{ margin: "0 1rem" }}
 					/>
 				))}
-			</Marquee>
+			</StyledMarquee>
 
 			<ButtonWrapper>
 				<PrimaryButton
@@ -97,7 +92,13 @@ const Slider = ({ heroes, setHistory }) => {
 				>
 					{play ? (isStopping ? "Stopping" : "Stop") : "Random"}
 				</PrimaryButton>
-				<SecondaryButton>History</SecondaryButton>
+				<SecondaryButton
+					onClick={() => {
+						setOpenHistory((open) => !open);
+					}}
+				>
+					History
+				</SecondaryButton>
 			</ButtonWrapper>
 			<HeroModal
 				open={modalOpen}

@@ -12,6 +12,14 @@ export const PrimaryButton = styled.button`
 	border-color: white;
 	padding: 5px 10px;
 	min-width: 100px;
+
+	:hover {
+		background: ${props => props.disabled? "#F5F5F5": "#5790fb"};
+	}
+
+	:active {
+		background: ${props => props.disabled? "#F5F5F5": "#2f5bad"};
+	}
 `;
 
 export const SecondaryButton = styled.button`
@@ -24,6 +32,17 @@ export const SecondaryButton = styled.button`
 	border-color: #4182f7;
 	padding: 5px 10px;
 	min-width: 100px;
+
+	:hover {
+		background: #4182f7;
+		color: white;
+	}
+
+	:active {
+		background: #2f5bad;
+		color: white;
+		border-color: #2f5bad;
+	}
 `;
 
 export const LandingWrapper = styled.div`

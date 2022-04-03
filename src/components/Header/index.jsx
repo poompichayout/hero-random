@@ -7,6 +7,7 @@ import {
 	LogoWrapper,
 	MenuList,
 	MenuItem,
+	HamburgerMenu
 } from "./style";
 
 import logo from "../../images/random.png";
@@ -22,13 +23,12 @@ const Header = () => {
 			</LeftMenu>
 			<RightMenu>
 				<MenuList>
-					<MenuItem>About us</MenuItem>
-					<MenuItem>Features</MenuItem>
-					<MenuItem>Login</MenuItem>
+					<MenuItem>Home</MenuItem>
 					<MenuItem>
-						<PrimaryButton>Sign Up</PrimaryButton>
+						<PrimaryButton>Go random</PrimaryButton>
 					</MenuItem>
 				</MenuList>
+				<HamburgerMenu className="fa fa-bars"></HamburgerMenu>
 			</RightMenu>
 		</Navbar>
 	);
